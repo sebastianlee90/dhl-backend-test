@@ -1,9 +1,7 @@
 package com.backend.coordinateManagement.dto;
 
-public record DistanceDTO(
+public record PostcodeDTO(
 String Id, 
 String postcode,
 String latitude,
-String longitude,
-String distance,
-String distanceUom) {}
+String longitude) {}
