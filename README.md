@@ -18,9 +18,9 @@ Technical Assessment for DHL Backend
 
 - Spring Boot 3.x
 - Java 17+
-- Spring Data JPA
+<!-- - Spring Data JPA -->
 - jOOQ Object Oriented Querying
-- Spring Security
+<!-- - Spring Security -->
 - PostgreSQL - Neon tech
 - Gradle for dependency management
 

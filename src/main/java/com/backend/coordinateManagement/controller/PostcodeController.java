@@ -6,9 +6,13 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.coordinateManagement.dto.PostcodeDTO;
+import com.backend.coordinateManagement.dto.PaginationRequestDTO;
+import com.backend.coordinateManagement.dto.PaginationResponseDTO;
+import com.backend.coordinateManagement.dto.postcode.PostcodeDTO;
+import com.backend.coordinateManagement.dto.postcode.PostcodeRequestDTO;
 import com.backend.coordinateManagement.services.IPostcodeService;
 import com.backend.coordinateManagement.util.LogUtil;
 
@@ -23,10 +27,28 @@ public class PostcodeController {
     }
     
   @GetMapping("")
-  public List<PostcodeDTO> getPostcodeList() {
+  public List<PostcodeDTO> getPostcodeList(
+    @RequestParam(required = false) String postcode,
+    @RequestParam(required = false) String sort,
+    @RequestParam(required = false) String sortDirection,
+    @RequestParam(required = false) Long page,
+    @RequestParam(required = false) Long size
+  ) {
       log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeList");
-      return postcodeService.getPostcodeList();
+      PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
+      PaginationRequestDTO paginationRequestDTO =
+        new PaginationRequestDTO(sort, sortDirection, page, size);
+      return postcodeService.getPostcodeList(requestDTO, paginationRequestDTO);
   }
 
-  
+  @GetMapping("/page")
+  public PaginationResponseDTO getPostcodeListPages(
+    @RequestParam(required = false) String postcode,
+    @RequestParam(required = false) Long size
+  ) {
+      log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeListPages");
+      PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
+      PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(null, null, null, size);
+      return postcodeService.getPostcodeListPages(requestDTO, paginationRequestDTO);
+  }
 }

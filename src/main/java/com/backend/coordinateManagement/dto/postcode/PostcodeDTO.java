@@ -1,4 +1,4 @@
-package com.backend.coordinateManagement.dto;
+package com.backend.coordinateManagement.dto.postcode;
 
 public record PostcodeDTO(
 String Id, 
