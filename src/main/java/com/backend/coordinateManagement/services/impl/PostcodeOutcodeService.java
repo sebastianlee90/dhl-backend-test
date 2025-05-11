@@ -1,13 +1,17 @@
 package com.backend.coordinateManagement.services.impl;
 
 import com.backend.coordinateManagement.model.PostcodeOutcode;
+import com.backend.coordinateManagement.services.IPostcodeOutcodeService;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
-public class PostcodeOutcodeService {
+@AllArgsConstructor
+public class PostcodeOutcodeService implements IPostcodeOutcodeService {
 
     // Read data from the CSV file
     public List<PostcodeOutcode> readCsv() {
