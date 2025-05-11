@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.coordinateManagement.dto.PaginationRequestDTO;
 import com.backend.coordinateManagement.dto.PaginationResponseDTO;
+import com.backend.coordinateManagement.dto.distance.DistanceDTO;
+import com.backend.coordinateManagement.dto.distance.DistanceRequestDTO;
 import com.backend.coordinateManagement.dto.postcode.PostcodeDTO;
 import com.backend.coordinateManagement.dto.postcode.PostcodeRequestDTO;
 import com.backend.coordinateManagement.services.IPostcodeService;
@@ -34,7 +36,7 @@ public class PostcodeController {
     @RequestParam(required = false) Long page,
     @RequestParam(required = false) Long size
   ) {
-      log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeList");
+      log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeListController");
       PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
       PaginationRequestDTO paginationRequestDTO =
         new PaginationRequestDTO(sort, sortDirection, page, size);
@@ -46,9 +48,19 @@ public class PostcodeController {
     @RequestParam(required = false) String postcode,
     @RequestParam(required = false) Long size
   ) {
-      log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeListPages");
+      log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeListPagesController");
       PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
       PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(null, null, null, size);
       return postcodeService.getPostcodeListPages(requestDTO, paginationRequestDTO);
+  }
+
+  @GetMapping("/calculate_distance")
+  public DistanceDTO getDistance(
+    @RequestParam(required = false) String postcodeFrom,
+    @RequestParam(required = false) String postcodeTo
+  ) {
+      log.info(LogUtil.ENTRY_CONTROLLER, "getDistanceController");
+      DistanceRequestDTO requestDTO = new DistanceRequestDTO(postcodeFrom, postcodeTo);
+      return postcodeService.getDistance(requestDTO);
   }
 }

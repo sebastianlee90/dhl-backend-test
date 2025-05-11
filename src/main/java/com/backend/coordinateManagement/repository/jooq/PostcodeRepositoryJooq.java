@@ -10,6 +10,7 @@ import org.jooq.Record1;
 import org.jooq.Record4;
 import org.jooq.SelectJoinStep;
 import org.jooq.SelectLimitPercentAfterOffsetStep;
+import org.jooq.SelectLimitPercentStep;
 import org.springframework.stereotype.Repository;
 
 import com.backend.coordinateManagement.dto.PaginationRequestDTO;
@@ -30,7 +31,7 @@ public class PostcodeRepositoryJooq {
 
     public List<PostcodeDTO> getPostcodeList(
         PostcodeRequestDTO requestDTO, PaginationRequestDTO pg) {
-        log.info(LogUtil.ENTRY_REPOSITORY, "getCategoryList");
+        log.info(LogUtil.ENTRY_REPOSITORY, "getPostcodeListJooq");
         Condition condition = noCondition();
         if (CommonUtil.isNotEmpty(requestDTO.postcode())) {
             condition = condition.and(field("POS.postcode").eq(requestDTO.postcode()));
@@ -38,11 +39,10 @@ public class PostcodeRepositoryJooq {
 
         Field<Long> id = field("POS.id", Long.class).as("id");
         Field<String> postcode = field("POS.postcode", String.class).as("postcode");
-        Field<String> latitude = field("POS.latitude", String.class).as("latitude");
-        Field<String> longitude = field("POS.longitude", String.class).as("longitude");
-            
+        Field<Double> latitude = field("POS.latitude", Double.class).as("latitude");
+        Field<Double> longitude = field("POS.longitude", Double.class).as("longitude");
 
-        SelectLimitPercentAfterOffsetStep<Record4<Long, String, String, String>> query =
+        SelectLimitPercentAfterOffsetStep<Record4<Long, String, Double, Double>> query =
             dsl.select(id, postcode, latitude, longitude )
                 .from(table("Postcode POS"))
                 .where(condition)
@@ -56,7 +56,7 @@ public class PostcodeRepositoryJooq {
     }
 
     public Long getPostcodeListPages(PostcodeRequestDTO requestDTO) {
-    log.info(LogUtil.ENTRY_REPOSITORY, "getPostcodeListPages");
+    log.info(LogUtil.ENTRY_REPOSITORY, "getPostcodeListPagesJooq");
     Condition condition = noCondition();
 
     if (CommonUtil.isNotEmpty(requestDTO.postcode())) {
@@ -77,4 +77,27 @@ public class PostcodeRepositoryJooq {
 
     return query.fetchOneInto(Long.class);
   }
+
+  public PostcodeDTO getPostcode(String requestPostcode) {
+        log.info(LogUtil.ENTRY_REPOSITORY, "getPostcodeJooq");
+        Condition condition = noCondition();
+        if (CommonUtil.isNotEmpty(requestPostcode)) {
+            condition = condition.and(field("POS.postcode").eq(requestPostcode));
+        }
+
+        Field<Long> id = field("POS.id", Long.class).as("id");
+        Field<String> postcode = field("POS.postcode", String.class).as("postcode");
+        Field<Double> latitude = field("POS.latitude", Double.class).as("latitude");
+        Field<Double> longitude = field("POS.longitude", Double.class).as("longitude");
+
+        SelectLimitPercentStep<Record4<Long, String, Double, Double>> query =
+            dsl.select(id, postcode, latitude, longitude )
+                .from(table("Postcode POS"))
+                .where(condition)
+                .limit(1);
+
+        log.info(LogUtil.QUERY, query);
+
+        return query.fetchOneInto(PostcodeDTO.class);
+    }
 }
