@@ -16,6 +16,8 @@ import com.backend.coordinateManagement.util.PaginationUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Slf4j
@@ -25,6 +27,7 @@ public class PostcodeService implements IPostcodeService {
     private final PostcodeRepositoryJooq postcodeRepositoryJooq;
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostcodeDTO> getPostcodeList(
         PostcodeRequestDTO requestDTO, PaginationRequestDTO paginationRequestDTO) {
         log.info(LogUtil.ENTRY_SERVICES, "getCategoryListService");
@@ -34,6 +37,7 @@ public class PostcodeService implements IPostcodeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public PaginationResponseDTO getPostcodeListPages(
         PostcodeRequestDTO requestDTO, PaginationRequestDTO paginationRequestDTO) {
         log.info(LogUtil.ENTRY_SERVICES, "getRecipeListPagesService");
@@ -42,6 +46,7 @@ public class PostcodeService implements IPostcodeService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public DistanceDTO getDistance(DistanceRequestDTO requestDTO) {
         log.info(LogUtil.ENTRY_SERVICES, "getDistanceService");
         log.info("Request DTO: {}", requestDTO);
