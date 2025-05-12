@@ -2,17 +2,12 @@
 
 Technical Assessment for DHL Backend
 
-# RESTful API for Recipe Management System using Spring Boot 3
+# RESTful API for Coordinate Management System using Spring Boot 3
 
 - [Tech Stack](#tech-stack)
 - [Run Project](#run-project)
+- [API URLs](#api-urls)
 - [Containerized application with Docker](#containerized-application-with-docker)
-- [Prometheus for Monitoring](#prometheus-for-monitoring)
-- [Spring Boot Jwt Based Authentication and Role-based access control](#spring-boot-jwt-based-authentication)
-  - [UserDetailsService](#userdetailsservice)
-  - [Add SecurityFilterChain](#add-securityfilterchain)
-  - [Generate Jwt Token](#generate-jwt-token)
-  - [Implement JwtAuthenticationFilter](#implement-jwtauthenticationfilter)
 
 ## Tech Stack:
 
@@ -28,10 +23,23 @@ Technical Assessment for DHL Backend
 ./gradlew bootRun
 ```
 
+## API URLs
+
+```
+src\main\java\com\backend\coordinateManagement\controller\PostcodeController.java
+```
+
+Example:
+
+```
+localhost:8081/api/v1/postcode
+
+localhost:8081/api/v1/postcode/calculate_distance?postcodeFrom=B34&postcodeTo=L36
+```
+
 ## Containerized application with Docker
 
 ```
 <!-- Build docker image -->
 docker build -t coordinate-management .
-
 ```
