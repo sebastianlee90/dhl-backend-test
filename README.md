@@ -18,9 +18,7 @@ Technical Assessment for DHL Backend
 
 - Spring Boot 3.x
 - Java 17+
-<!-- - Spring Data JPA -->
 - jOOQ Object Oriented Querying
-<!-- - Spring Security -->
 - PostgreSQL - Neon tech
 - Gradle for dependency management
 
@@ -34,8 +32,6 @@ Technical Assessment for DHL Backend
 
 ```
 <!-- Build docker image -->
-docker build -t recipe-management .
+docker build -t coordinate-management .
 
-<!-- Run container from image-->
-docker run --name recipe-management -p 8080:8080 recipe-management
 ```
