@@ -32,9 +32,9 @@ src\main\java\com\backend\coordinateManagement\controller\PostcodeController.jav
 Example:
 
 ```
-localhost:8081/api/v1/postcode
+localhost:8080/api/v1/postcode
 
-localhost:8081/api/v1/postcode/calculate_distance?postcodeFrom=B34&postcodeTo=L36
+localhost:8080/api/v1/postcode/calculate_distance?postcodeFrom=B34&postcodeTo=L36
 ```
 
 ## Containerized application with Docker
@@ -42,4 +42,7 @@ localhost:8081/api/v1/postcode/calculate_distance?postcodeFrom=B34&postcodeTo=L3
 ```
 <!-- Build docker image -->
 docker build -t coordinate-management
+
+<!-- Run container from image-->
+docker run --name coordinate-management -p 8080:8080 coordinate-management
 ```
