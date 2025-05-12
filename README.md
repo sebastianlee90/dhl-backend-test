@@ -41,5 +41,5 @@ localhost:8081/api/v1/postcode/calculate_distance?postcodeFrom=B34&postcodeTo=L3
 
 ```
 <!-- Build docker image -->
-docker build -t coordinate-management .
+docker build -t coordinate-management
 ```
