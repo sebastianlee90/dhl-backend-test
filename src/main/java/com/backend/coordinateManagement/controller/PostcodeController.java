@@ -40,7 +40,12 @@ public class PostcodeController {
       PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
       PaginationRequestDTO paginationRequestDTO =
         new PaginationRequestDTO(sort, sortDirection, page, size);
-      return postcodeService.getPostcodeList(requestDTO, paginationRequestDTO);
+
+      Long startTime = System.currentTimeMillis();
+      List<PostcodeDTO> result = postcodeService.getPostcodeList(requestDTO, paginationRequestDTO);
+      Long endTime = System.currentTimeMillis();
+      log.info("API Query executed in {} ms", (endTime - startTime));
+      return result;
   }
 
   @GetMapping("/page")
@@ -51,7 +56,13 @@ public class PostcodeController {
       log.info(LogUtil.ENTRY_CONTROLLER, "getPostcodeListPagesController");
       PostcodeRequestDTO requestDTO = new PostcodeRequestDTO(postcode);
       PaginationRequestDTO paginationRequestDTO = new PaginationRequestDTO(null, null, null, size);
-      return postcodeService.getPostcodeListPages(requestDTO, paginationRequestDTO);
+
+      Long startTime = System.currentTimeMillis();
+      PaginationResponseDTO result = postcodeService.getPostcodeListPages(requestDTO, paginationRequestDTO);
+      Long endTime = System.currentTimeMillis();
+      log.info("API Query executed in {} ms", (endTime - startTime));
+
+      return result;
   }
 
   @GetMapping("/calculate_distance")
@@ -61,6 +72,12 @@ public class PostcodeController {
   ) {
       log.info(LogUtil.ENTRY_CONTROLLER, "getDistanceController");
       DistanceRequestDTO requestDTO = new DistanceRequestDTO(postcodeFrom, postcodeTo);
-      return postcodeService.getDistance(requestDTO);
+
+      Long startTime = System.currentTimeMillis();
+      DistanceDTO result = postcodeService.getDistance(requestDTO);
+      Long endTime = System.currentTimeMillis();
+      log.info("API Query executed in {} ms", (endTime - startTime));
+
+      return result;
   }
 }

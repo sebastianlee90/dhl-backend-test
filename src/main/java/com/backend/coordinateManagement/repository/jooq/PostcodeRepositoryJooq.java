@@ -51,8 +51,12 @@ public class PostcodeRepositoryJooq {
                 .limit(pg.size());
 
         log.info(LogUtil.QUERY, query);
+        Long startTime = System.currentTimeMillis();
+        List<PostcodeDTO> result = query.fetchInto(PostcodeDTO.class);
+        Long endTime = System.currentTimeMillis();
+        log.info("Jooq Query executed in {} ms", (endTime - startTime));
 
-        return query.fetchInto(PostcodeDTO.class);
+        return result;
     }
 
     public Long getPostcodeListPages(PostcodeRequestDTO requestDTO) {
@@ -74,8 +78,12 @@ public class PostcodeRepositoryJooq {
                     .groupBy(field("POS.postcode")));
 
     log.info(LogUtil.QUERY, query);
+    Long startTime = System.currentTimeMillis();
+    Long result = query.fetchOneInto(Long.class);
+    Long endTime = System.currentTimeMillis();
+    log.info("Jooq Query executed in {} ms", (endTime - startTime));
 
-    return query.fetchOneInto(Long.class);
+    return result;
   }
 
   public PostcodeDTO getPostcode(String requestPostcode) {
@@ -97,7 +105,11 @@ public class PostcodeRepositoryJooq {
                 .limit(1);
 
         log.info(LogUtil.QUERY, query);
+        Long startTime = System.currentTimeMillis();
+        PostcodeDTO result = query.fetchOneInto(PostcodeDTO.class);
+        Long endTime = System.currentTimeMillis();
+        log.info("Jooq Query executed in {} ms", (endTime - startTime));
 
-        return query.fetchOneInto(PostcodeDTO.class);
+        return result;
     }
 }
